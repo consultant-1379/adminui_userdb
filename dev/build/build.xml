@@ -1,0 +1,38 @@
+<project name="user-database" default="compile">
+
+  <property name="pack.name" value="user-database" />
+  <property name="pack.version" value="1-0-0" />
+  <property name="pack.dir" value="/proj/eiffel013_config_fem6s11/eiffel_home/jobs/Git_adminui_userdb/adminui_userdb/dev/"/>
+
+  <!-- LIBRARY PATHS -->
+  <property name="3pp.dir" value="/proj/eiffel013_config_fem6s11/3pp" />
+
+  <!-- TOMCAT LIBRARIES ARE USED FOR BUILDING ONLY! -->
+  <property name="servlet-api.dir" value="${3pp.dir}/apache/tomcat/v8_5_61/prod" />
+
+  <target name="precompile" />
+
+  <target name="compile">
+    <mkdir dir="${pack.dir}/classes" />
+    <javac srcdir="${pack.dir}/src" destdir="${pack.dir}/classes" failonerror="true" debug="on" optimize="off" deprecation="off">
+      <classpath>
+        <pathelement path="${classpath}" />
+        <pathelement path="${servlet-api.dir}/servlet-api.jar" />
+        <pathelement path="${servlet-api.dir}/catalina.jar" />
+        <pathelement path="${servlet-api.dir}/tomcat-coyote.jar" />
+        <pathelement path="${servlet-api.dir}/tomcat-juli.jar" />
+        <pathelement path="${servlet-api.dir}/tomcat-util.jar" />
+		<pathelement path="${servlet-api.dir}/tomcat-util-scan.jar" />
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="postcompile">
+    <copy todir="${pack.dir}/classes">
+      <fileset dir="${pack.dir}/src">
+        <include name="**/*.xml" />
+      </fileset>
+    </copy>
+  </target>
+
+</project>
